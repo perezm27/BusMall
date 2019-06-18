@@ -10,7 +10,7 @@ var totalNumOfClicks = 0;
 
 //Stores imgs already on the page
 var leftImgOnThePage = null;
-var centerImgOnThePage = null;
+// var centerImgOnThePage = null;
 var rightImgOnThePage = null;
 
 var OurImages = function(name, imgSrc){
@@ -28,7 +28,7 @@ OurImages.allImgsArr = [];
 
 var renderNewImgs = function (leftIndex, centerIndex, rightIndex){
   leftImgTag.src = OurImages.allImgsArr[leftIndex].url;
-  centerImgTag.src = OurImages.allImgsArr[centerIndex].url;
+  // centerImgTag.src = OurImages.allImgsArr[centerIndex].url;
   rightImgTag.src = OurImages.allImgsArr[rightIndex].url;
 
 };
@@ -36,17 +36,15 @@ var renderNewImgs = function (leftIndex, centerIndex, rightIndex){
 //new img selection
 var selectNewRandomImg = function () {
   var leftIndex = Math.round(Math.random() * OurImages.allImgsArr.length);
-
   var centerIndex = Math.round(Math.random * OurImages.allImgsArr.length);
 
   do {
     var rightIndex = Math.round(Math.random() * OurImages.allImgsArr.length);
-  } while (rightIndex === leftIndex);
+  } while (rightIndex === leftIndex || rightIndex === centerIndex);
 
-  console.log(OurImages.allImages[leftIndex].name, OurImages.allImages[rightIndex].name);
 
   leftImgOnThePage = OurImages.allImgsArr[leftIndex];
-  centerImgOnThePage = OurImages.allImgsArr[centerIndex];
+  // centerImgOnThePage = OurImages.allImgsArr[centerIndex];
   rightImgOnThePage = OurImages.allImgsArr[rightIndex];
 
   renderNewImgs(leftIndex, centerIndex,rightIndex);
@@ -65,7 +63,7 @@ var handleClickedImg = function(event){
       }
 
       if (id === 'centerImg'){
-        centerImgOnThePage.numOfTimesClicked++;
+        // centerImgOnThePage.numOfTimesClicked++;
       }
 
       if(id ==='rightImg'){
@@ -73,7 +71,7 @@ var handleClickedImg = function(event){
       }
 
       leftImgOnThePage.numOftimeDisplayed++;
-      centerImgOnThePage.numOftimeDisplayed++;
+      // centerImgOnThePage.numOftimeDisplayed++;
       rightImgOnThePage.numOftimeDisplayed++;
 
       selectNewRandomImg();
