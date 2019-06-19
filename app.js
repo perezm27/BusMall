@@ -8,18 +8,14 @@
 var leftImgTag = document.getElementById('leftImg');
 var centerImgTag = document.getElementById('centerImg');
 var rightImgTag = document.getElementById('rightImg');
-
 var imgSelectionTag = document.getElementById('imgSelection');
-// var resultsSelectionTag = document.getElementById('results');
-
 var clickCount = 0;
 var maxNumOfClicks = 25;
 
-
-var OurImages = function(name, imgSrc = 'default.jpg', numOfTimesClicked, numOftimeDisplayed){
+//Img Constructor begings
+var OurImages = function(name, imgSrc, numOfTimesClicked, numOftimeDisplayed){
   this.name = name;
   this.url = imgSrc;
-
   // ternary operator - shorthand if/else statement
   this.numOfTimesClicked = numOfTimesClicked ? numOfTimesClicked : 0;
   this.numOftimeDisplayed = numOftimeDisplayed || 0;
@@ -55,7 +51,7 @@ var createNewImgs = function() {
   new OurImages('Sweep', './img/sweep.png');
 };
 
-
+//Calculates random Img
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -64,19 +60,19 @@ function getRandomIntInclusive(min, max) {
 
 //new Random image selection
 var selectNewRandomImg = function (currentImgsDisplayed) {
-  var index, product;
+  var index, images;
 
   do {
 
     index = getRandomIntInclusive(0, OurImages.allImgsArr.length - 1);
-    product = OurImages.allImgsArr[index];
+    images = OurImages.allImgsArr[index];
 
-  } while (OurImages.previousImgShown.includes(product) || currentImgsDisplayed.includes(product));
+  } while (OurImages.previousImgShown.includes(images) || currentImgsDisplayed.includes(images));
 
-  return product;
+  return images;
 };
 
-//selects new img and places them into our currentImgDisplayed array
+//selects imgs shown and places them into our currentImgDisplayed array
 var renderNewImgs = function (){
   var currentImgsDisplayed = [];
 
@@ -89,6 +85,7 @@ var renderNewImgs = function (){
   var centerImg = selectNewRandomImg(currentImgsDisplayed);
   currentImgsDisplayed.push(centerImg);
 
+  //Captures img URL
   leftImgTag.src = leftImg.url;
   rightImgTag.src = rightImg.url;
   centerImgTag.src = centerImg.url;
@@ -104,6 +101,7 @@ var handleClickedImg = function(event){
   clickCount++;
   var id = event.target.id;
 
+  //Handles how the imgs are displayed
   if (id === 'leftImg'){
     OurImages.previousImgShown[0].numOfTimesClicked++;
   }
@@ -113,7 +111,7 @@ var handleClickedImg = function(event){
   if (id === 'centerImg'){
     OurImages.previousImgShown[2].numOfTimesClicked++;
   }
-  //increments number of time an image is shown
+  //increments number of times an image is shown
   for(var i = 0; i < OurImages.previousImgShown.length; i++){
     OurImages.previousImgShown[i].numOftimeDisplayed++;
   }
@@ -123,7 +121,7 @@ var handleClickedImg = function(event){
     renderNewImgs();
   } else {
     imgSelectionTag.removeEventListener('click', handleClickedImg);
-    createBusChart();
+    generateBusChartData();
   }
 };
 
@@ -139,11 +137,12 @@ init();
 
 
 //Our Chart
-function createBusChart () {
+function generateBusChartData () {
   var busChartCanvas = document.getElementById('myChart');
   var percents = [];
   var names = [];
-  //Calculates our results to render on Chart
+
+  //Calculates our data to render on Chart
   for (var i = 0; i < OurImages.allImgsArr.length; i++){
     var p = Math.floor((OurImages.allImgsArr[i].numOfTimesClicked / OurImages.allImgsArr[i].numOftimeDisplayed) * 100);
 
