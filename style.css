@@ -1,57 +1,75 @@
+/* Footer source: https://www.freecodecamp.org/news/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/ */
+
 *{
   box-sizing: border-box;
 }
 
 header{
-  background-color:red;
+  background-color: black;
+    color: blanchedalmond;
+  height: 60px;
   width: 100%;
-}
-
-nav{
-  max-width: 900px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-main{
-  max-width: 900px;
-  margin: 0 auto;
-  overflow: hidden;
-  margin-left: 0;
-}
-
-
-#results{
-  background-color: blue;
-  float: left;
-  margin-left: 0;
-  padding: 10px;
-  height: 500px;
-}
-
-li{
-  list-style: none;
-  height: 100%;
-}
-
-#imgSelection{
-  background-color: blueviolet;
-  width: auto;
-}
-
-img{
-  max-height: 200px;
-  max-width: 100%;
-  margin: auto;
-  float: left;
   text-align: center;
 }
 
+nav{
+  max-width: 960px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+body{
+  height: 100%;
+  background-color: lightgray;
+
+}
+
+main{
+  max-width: 960px;
+}
+
+
+#imgSelection{
+  background-color: blueviolet;
+  display: block;
+}
+
+img{
+  float: left;
+  height: 300px;
+  width: 250px;
+}
+
+div:last-child img{
+  margin-right: 0px;
+}
+
+#chartsR{
+  float: left;
+  width: 100%;
+  height: 400px;
+}
+
 footer{
-    background-color: aqua;
-    width: 100%;
+    background-color: black;
+    color: blanchedalmond;
     height: 50px;
-    margin: 0 auto;
-    overflow: hidden;
     text-align: center;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  margin-left: 400px;
+  margin-top: 50px;
+  padding-bottom: 2.5rem;  
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;          
 }
