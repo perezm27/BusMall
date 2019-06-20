@@ -1,8 +1,10 @@
 'use strict';
+/*
+A simple Web Application that keeps tracks of the users favorite items
+and displays that data using chart.js
 
-
-//Random Generator source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-
+Random Generator source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+*/
 
 //Global variables
 var leftImgTag = document.getElementById('leftImg');
@@ -11,6 +13,22 @@ var rightImgTag = document.getElementById('rightImg');
 var imgSelectionTag = document.getElementById('imgSelection');
 var clickCount = 0;
 var maxNumOfClicks = 25;
+var percents = [];
+var names = [];
+//holds localStorage items
+var x, y;
+
+//checkStorage
+var checkStorage = function(){
+  if(localStorage === null){
+    init();
+
+  } else if (localStorage !== null){
+    x = JSON.parse(localStorage.getItem('Nameofimgs'));
+    y = JSON.parse(localStorage.getItem('Percentageofitemsclicked')) ;
+    generateBusChartData();
+  }
+};
 
 //Img Constructor begings
 var OurImages = function(name, imgSrc, numOfTimesClicked, numOftimeDisplayed){
@@ -95,7 +113,6 @@ var renderNewImgs = function (){
 
 };
 
-
 //Handles images clicked & keeps track of how many times they've been clicked & shown
 var handleClickedImg = function(event){
   clickCount++;
@@ -116,31 +133,35 @@ var handleClickedImg = function(event){
     OurImages.previousImgShown[i].numOftimeDisplayed++;
   }
 
-
+  //Renders new imgs based on clickCount
   if (clickCount < maxNumOfClicks){
     renderNewImgs();
   } else {
+    //Disables event handler & generates our BusChart
     imgSelectionTag.removeEventListener('click', handleClickedImg);
     generateBusChartData();
+
+    //saves our data to localStorage
+    localStorage.setItem('Percentageofitemsclicked', JSON.stringify(percents));
+    localStorage.setItem('Nameofimgs', JSON.stringify(names));
+    checkStorage();
   }
 };
 
 //calls our functions
 var init = function (){
+  //if localStorage exists pop globals if does not exits treate as empty
+  checkStorage();
   createNewImgs();
   renderNewImgs();
   imgSelectionTag.addEventListener('click', handleClickedImg);
-
 };
 
 init();
 
-
 //Our Chart
 function generateBusChartData () {
   var busChartCanvas = document.getElementById('myChart');
-  var percents = [];
-  var names = [];
 
   //Calculates our data to render on Chart
   for (var i = 0; i < OurImages.allImgsArr.length; i++){
@@ -148,12 +169,13 @@ function generateBusChartData () {
 
     names.push(OurImages.allImgsArr[i].name);
     percents.push(p);
+
   }
   var chartData = {
-    labels: names,
+    labels: x,
     datasets: [{
       label: '# Of Clicks',
-      data: percents,
+      data: y,
       backgroundColor: [
         'rgba(255, 99, 132, .4)',
         'rgba(54, 162, 235, 0.2)',
@@ -189,7 +211,7 @@ function generateBusChartData () {
   };
 
   var busChartObject = {
-    type: 'pie',
+    type: 'doughnut',
     data: chartData,
     options: {
       responsive: true,
