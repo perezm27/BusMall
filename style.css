@@ -6,14 +6,14 @@
 
 header{
   background-color: black;
-    color: blanchedalmond;
-  height: 60px;
+  color: blanchedalmond;
+  height: 80px;
   width: 100%;
   text-align: center;
 }
 
 nav{
-  max-width: 960px;
+  max-width: 100%;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -28,9 +28,31 @@ main{
 }
 
 
+ h1, h3 { 
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 2em;
+
+}
+
+p{
+  font-family: 'Times New Roman', Times, serif;
+}
+
 #imgSelection{
-  background-color: blueviolet;
   display: block;
+}
+
+#rightImg{
+  border: 1px solid black;
+}
+
+#centerImg{
+  border: 1px solid black;
+}
+
+#leftImg{
+  border: 1px solid black;
 }
 
 img{
@@ -50,26 +72,26 @@ div:last-child img{
 }
 
 footer{
-    background-color: black;
-    color: blanchedalmond;
-    height: 50px;
-    text-align: center;
+  background-color: black;
+  color: blanchedalmond;
+  max-width: 100%;
+  height: 80px;
+  text-align: center;
 }
 
 #page-container {
-  position: relative;
+  position: sticky;
   min-height: 100vh;
 }
 
 #content-wrap {
-  margin-left: 400px;
+  margin-left: 380px;
   margin-top: 50px;
-  padding-bottom: 2.5rem;  
 }
 
 #footer {
-  position: absolute;
   bottom: 0;
   width: 100%;
-  height: 2.5rem;          
+  margin: 0 auto;
+  overflow: hidden;         
 }
