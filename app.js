@@ -25,7 +25,7 @@ var checkStorage = function(){
 
   } else if (localStorage !== null){
     x = JSON.parse(localStorage.getItem('Nameofimgs'));
-    y = JSON.parse(localStorage.getItem('Percentageofitemsclicked')) ;
+    y = JSON.parse(localStorage.getItem('PercentageOfItemsClicked')) ;
     generateBusChartData();
   }
 };
@@ -137,12 +137,15 @@ var handleClickedImg = function(event){
   if (clickCount < maxNumOfClicks){
     renderNewImgs();
   } else {
+    location.reload();
     //Disables event handler & generates our BusChart
     imgSelectionTag.removeEventListener('click', handleClickedImg);
+
+    //generates Chart atfer max clicks
     generateBusChartData();
 
     //saves our data to localStorage
-    localStorage.setItem('Percentageofitemsclicked', JSON.stringify(percents));
+    localStorage.setItem('PercentageOfItemsClicked', JSON.stringify(percents));
     localStorage.setItem('Nameofimgs', JSON.stringify(names));
     checkStorage();
   }
@@ -174,7 +177,7 @@ function generateBusChartData () {
   var chartData = {
     labels: x,
     datasets: [{
-      label: '# Of Clicks',
+      label: 'Percentage of Clicks',
       data: y,
       backgroundColor: [
         'rgba(255, 99, 132, .4)',
@@ -211,7 +214,7 @@ function generateBusChartData () {
   };
 
   var busChartObject = {
-    type: 'doughnut',
+    type: 'bar',
     data: chartData,
     options: {
       responsive: true,
