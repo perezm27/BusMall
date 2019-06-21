@@ -65,6 +65,10 @@ div:last-child img{
   margin-right: 0px;
 }
 
+#txts{
+  line-height: 2em;
+}
+
 #chartsR{
   float: left;
   width: 100%;
